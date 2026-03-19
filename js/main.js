@@ -88,7 +88,6 @@ tabBtns.forEach(btn => {
     const target = document.getElementById('tab-' + btn.dataset.tab);
     if (target) {
       target.classList.add('active');
-      // Trigger count-up animation when alumni tab is activated
       if (btn.dataset.tab === 'alumni') {
         runCountUp();
       }
@@ -150,7 +149,6 @@ if (alumniSortEl) {
   });
 }
 
-// Initial render
 renderAlumni(getSortedAlumni('all', 'newest'));
 
 /* ── Count-Up Animation ── */
@@ -184,20 +182,40 @@ const observer = new IntersectionObserver((entries) => {
 
 scrollFadeEls.forEach(el => observer.observe(el));
 
-/* ── Contact Form ── */
+/* ── Contact Form (EmailJS) ── */
+emailjs.init('Y-jr2np6b_TvYmDY9');
+
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const btn = contactForm.querySelector('button[type="submit"]');
-    btn.textContent = '전송 완료! ✓';
+    btn.textContent = '전송 중...';
     btn.disabled = true;
-    btn.style.background = '#2d7a40';
-    setTimeout(() => {
-      btn.innerHTML = '보내기 <i class="fas fa-paper-plane"></i>';
+
+    emailjs.send('service_gdid5ba', 'template_rz80j2b', {
+      from_name: document.getElementById('cName').value,
+      from_email: document.getElementById('cEmail').value,
+      message: document.getElementById('cMsg').value,
+    }).then(() => {
+      btn.textContent = '전송 완료!';
+      btn.style.background = '#2d7a40';
+      setTimeout(() => {
+        btn.innerHTML = '보내기 <i class="fas fa-paper-plane"></i>';
+        btn.disabled = false;
+        btn.style.background = '';
+        contactForm.reset();
+      }, 3000);
+    }).catch((err) => {
+      btn.textContent = '전송 실패 - 다시 시도해주세요';
+      btn.style.background = '#a03030';
       btn.disabled = false;
-      btn.style.background = '';
-      contactForm.reset();
-    }, 3000);
+      console.error('EmailJS Error:', err);
+      setTimeout(() => {
+        btn.innerHTML = '보내기 <i class="fas fa-paper-plane"></i>';
+        btn.style.background = '';
+      }, 3000);
+    });
   });
 }
+
