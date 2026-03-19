@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery – Urban Design Lab</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="navbar" id="navbar" style="background:rgba(15,28,20,0.98);">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-accent">UD</span>Lab
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="index.html#professor" class="nav-link">Professor</a></li>
+      <li><a href="index.html#research" class="nav-link">Research</a></li>
+      <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+      <li><a href="index.html#members" class="nav-link">Members</a></li>
+      <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
+      <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== GALLERY HERO ===== -->
+<section class="gallery-hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title fade-in">Gallery</h1>
+    <p class="hero-desc fade-in">Urban Design Lab의 활동과 추억을 담은 갤러리입니다</p>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="section section-light" style="padding-top:60px;">
+  <div class="container">
+
+    <!-- Gallery Filter -->
+    <div class="gallery-filters">
+      <button class="gallery-filter-btn active" data-category="all">전체</button>
+      <button class="gallery-filter-btn" data-category="group">단체사진</button>
+      <button class="gallery-filter-btn" data-category="event">행사</button>
+      <button class="gallery-filter-btn" data-category="daily">일상</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid" id="galleryGrid">
+
+      <div class="gallery-card" data-category="event">
+        <div class="gallery-thumb">
+          <img src="gallery/KakaoTalk_20260319_163128645_01.jpg" alt="해변 마라톤 단체사진" />
+        </div>
+        <div class="gallery-caption">
+          <h4>해변 마라톤 참가</h4>
+          <p>연구실 구성원들과 함께한 해변 러닝 이벤트</p>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="group">
+        <div class="gallery-thumb">
+          <img src="gallery/KakaoTalk_20260319_163128645_02.jpg" alt="연구실 회식" />
+        </div>
+        <div class="gallery-caption">
+          <h4>연구실 회식</h4>
+          <p>연구실 구성원 모두가 함께한 즐거운 저녁 시간</p>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="event">
+        <div class="gallery-thumb">
+          <img src="gallery/KakaoTalk_20260319_163128645_03.jpg" alt="미래도시 아이디어 공모전 KUP 20 최우수상" />
+        </div>
+        <div class="gallery-caption">
+          <h4>미래도시 아이디어 공모전 최우수상</h4>
+          <p>KUP 20 공모전 최우수상 수상 (300만원)</p>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="group">
+        <div class="gallery-thumb">
+          <img src="gallery/KakaoTalk_20260319_163128645_04.jpg" alt="연구실 야외 단체사진" />
+        </div>
+        <div class="gallery-caption">
+          <h4>연구실 단체사진</h4>
+          <p>현장 답사에서 함께 찍은 단체사진</p>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="daily">
+        <div class="gallery-thumb">
+          <img src="gallery/KakaoTalk_20260319_163128645_05.jpg" alt="서울 거리에서 셀카" />
+        </div>
+        <div class="gallery-caption">
+          <h4>서울 현장조사</h4>
+          <p>서울 도심에서의 현장조사 중 한 컷</p>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="daily">
+        <div class="gallery-thumb">
+          <img src="gallery/KakaoTalk_20260319_163128645_06.jpg" alt="클라이밍 후 무지개" />
+        </div>
+        <div class="gallery-caption">
+          <h4>클라이밍 활동</h4>
+          <p>연구실 체육 활동 후 멋진 무지개와 함께</p>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="daily">
+        <div class="gallery-thumb">
+          <img src="gallery/KakaoTalk_20260319_163128645.jpg" alt="해변에서 발 사진" />
+        </div>
+        <div class="gallery-caption">
+          <h4>해변에서</h4>
+          <p>모래사장에서의 여유로운 한때</p>
+        </div>
+      </div>
+
+    </div><!-- /galleryGrid -->
+
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <p>&copy; 2024 Urban Design Lab, Gachon University. All rights reserved.</p>
+  <p>경기도 성남시 수정구 성남대로 1342 가천대학교</p>
+</footer>
+
+<script>
+/* Hamburger */
+const hamburger = document.getElementById('hamburger');
+const navLinksEl = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => navLinksEl.classList.toggle('open'));
+navLinksEl.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => navLinksEl.classList.remove('open'));
+});
+
+/* Gallery Filter */
+const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+const cards = document.querySelectorAll('.gallery-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.category;
+    cards.forEach(card => {
+      if (cat === 'all' || card.dataset.category === cat) {
+        card.style.display = '';
+        card.style.animation = 'fadeUp 0.4s ease forwards';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+/* Lightbox */
+document.querySelectorAll('.gallery-thumb img').forEach(img => {
+  img.addEventListener('click', () => {
+    const lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML = '<img src="' + img.src + '" alt="' + img.alt + '"><button class="lightbox-close">&times;</button>';
+    document.body.appendChild(lb);
+    requestAnimationFrame(() => lb.classList.add('active'));
+    lb.addEventListener('click', () => { lb.classList.remove('active'); setTimeout(() => lb.remove(), 300); });
+  });
+});
+</script>
+</body>
+</html>

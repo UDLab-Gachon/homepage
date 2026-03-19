@@ -474,6 +474,110 @@ img { display: block; max-width: 100%; }
   box-shadow: 0 0 0 3px rgba(45,122,64,0.12);
 }
 
+/* ── Gallery Page ── */
+.gallery-hero {
+  position: relative; height: 320px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--dark-bg) 0%, #1a3d24 100%);
+  overflow: hidden;
+}
+.gallery-hero .hero-overlay {
+  position: absolute; inset: 0;
+  background: rgba(15,28,20,0.55);
+}
+.gallery-hero .hero-content { position: relative; text-align: center; }
+.gallery-hero .hero-title { font-size: 2.6rem; color: #fff; }
+.gallery-hero .hero-desc { color: rgba(255,255,255,0.7); margin-top: 10px; font-size: 1rem; }
+
+.gallery-upload-guide {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--green-pale); border: 1px solid rgba(45,122,64,0.2);
+  border-radius: var(--radius); padding: 18px 24px; margin-bottom: 32px;
+}
+.gallery-upload-guide i { font-size: 1.6rem; color: var(--green-mid); flex-shrink: 0; }
+.gallery-upload-guide strong { color: var(--green-dark); }
+.gallery-upload-guide p { font-size: 0.88rem; color: var(--text-mid); margin-top: 2px; }
+.gallery-upload-guide code {
+  background: rgba(45,122,64,0.12); padding: 2px 8px;
+  border-radius: 4px; font-size: 0.84rem; color: var(--green-dark);
+}
+
+.gallery-filters {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px;
+}
+.gallery-filter-btn {
+  padding: 8px 20px; border: 1.5px solid var(--border);
+  border-radius: 20px; background: #fff;
+  font-size: 0.88rem; font-family: inherit; cursor: pointer;
+  color: var(--text-mid); transition: all var(--transition);
+}
+.gallery-filter-btn:hover { border-color: var(--green-mid); color: var(--green-mid); }
+.gallery-filter-btn.active {
+  background: var(--green-mid); color: #fff;
+  border-color: var(--green-mid);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.gallery-card {
+  border-radius: var(--radius); overflow: hidden;
+  background: #fff; border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+  animation: fadeUp 0.4s ease forwards;
+}
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+}
+
+.gallery-thumb { position: relative; overflow: hidden; }
+.gallery-thumb img {
+  width: 100%; height: 220px; object-fit: cover;
+  cursor: pointer; transition: transform 0.4s ease;
+}
+.gallery-thumb img:hover { transform: scale(1.05); }
+
+.placeholder-thumb {
+  height: 220px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+  background: linear-gradient(135deg, #e8f5ec 0%, #d4edda 100%);
+  color: var(--green-mid);
+}
+.placeholder-thumb i { font-size: 2.8rem; opacity: 0.6; }
+.placeholder-thumb span { font-size: 0.85rem; opacity: 0.7; font-weight: 500; }
+
+.gallery-caption { padding: 16px 18px; }
+.gallery-caption h4 { font-size: 0.98rem; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
+.gallery-caption p { font-size: 0.85rem; color: var(--text-mid); margin-bottom: 8px; }
+.gallery-date { font-size: 0.78rem; color: rgba(0,0,0,0.35); }
+.gallery-date i { margin-right: 4px; }
+
+/* Lightbox */
+.lightbox {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.9); display: flex;
+  align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s ease; cursor: pointer;
+}
+.lightbox.active { opacity: 1; }
+.lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 8px 48px rgba(0,0,0,0.5); }
+.lightbox-close {
+  position: absolute; top: 24px; right: 32px;
+  font-size: 2.4rem; color: #fff; background: none;
+  border: none; cursor: pointer; opacity: 0.7;
+}
+.lightbox-close:hover { opacity: 1; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Footer ── */
 .footer {
   background: var(--dark-bg); color: rgba(255,255,255,0.45);
