@@ -437,7 +437,10 @@ img { display: block; max-width: 100%; }
 .degree-phd { background: rgba(100,149,237,0.2); color: #93b4f0; }
 .degree-ms { background: rgba(255,200,100,0.15); color: #f0c060; }
 .alumni-year { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+.alumni-thesis { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-top: 5px; line-height: 1.4; }
+.alumni-thesis i { margin-right: 5px; color: var(--green-light); }
 .alumni-affiliation { font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-top: 3px; }
+.alumni-affiliation i { margin-right: 5px; color: var(--green-light); }
 
 /* ── Contact ── */
 .contact-grid {

@@ -2,9 +2,9 @@
 
 /* ── Alumni Data ── */
 const alumniData = [
-  { name: '박태리', degree: 'ms', year: 2024, affiliation: '' },
-  { name: '임현석', degree: 'ms', year: 2020, affiliation: '' },
-  { name: '홍진기', degree: 'ms', year: 2018, affiliation: '' },
+  { name: '박태리', degree: 'ms', year: 2024, thesis: '공개공지 설계기준 비교 및 실증분석', affiliation: 'PMA 주임' },
+  { name: '임현석', degree: 'ms', year: 2020, thesis: '저층주거지 가로환경 개선을 위한 노상주차 배치방식에 관한 연구', affiliation: '(주)양지 도시건축연구소 연구원' },
+  { name: '홍진기', degree: 'ms', year: 2018, thesis: '지역 특성에 따른 가로환경개선사업 효과분석', affiliation: '' },
 ];
 
 /* ── Navbar: active link on scroll ── */
@@ -88,6 +88,7 @@ tabBtns.forEach(btn => {
     const target = document.getElementById('tab-' + btn.dataset.tab);
     if (target) {
       target.classList.add('active');
+      // Trigger count-up animation when alumni tab is activated
       if (btn.dataset.tab === 'alumni') {
         runCountUp();
       }
@@ -115,7 +116,8 @@ function renderAlumni(data) {
         <h4>${a.name}</h4>
         <span class="alumni-degree-badge ${degreeClass}">${degreeLabel}</span>
         <div class="alumni-year">${a.year}년 졸업</div>
-        ${a.affiliation ? `<div class="alumni-affiliation">${a.affiliation}</div>` : ''}
+        ${a.thesis ? `<div class="alumni-thesis"><i class="fas fa-book"></i> ${a.thesis}</div>` : ''}
+        ${a.affiliation ? `<div class="alumni-affiliation"><i class="fas fa-briefcase"></i> ${a.affiliation}</div>` : ''}
       </div>`;
     grid.appendChild(card);
   });
@@ -149,6 +151,7 @@ if (alumniSortEl) {
   });
 }
 
+// Initial render
 renderAlumni(getSortedAlumni('all', 'newest'));
 
 /* ── Count-Up Animation ── */
@@ -218,4 +221,3 @@ if (contactForm) {
     });
   });
 }
-
