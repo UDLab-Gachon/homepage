@@ -4,7 +4,7 @@
 const alumniData = [
   { name: '박태리', degree: 'ms', year: 2024, thesis: '공개공지 설계기준 비교 및 실증분석', affiliation: 'PMA 주임' },
   { name: '임현석', degree: 'ms', year: 2020, thesis: '저층주거지 가로환경 개선을 위한 노상주차 배치방식에 관한 연구', affiliation: '(주)양지 도시건축연구소 연구원' },
-  { name: '홍진기', degree: 'ms', year: 2018, thesis: '지역 특성에 따른 가로환경개선사업 효과분석', affiliation: '' },
+  { name: '홍진기', degree: 'ms', year: 2018, thesis: '지역 특성에 따른 가로환경개선사업 효과분석', affiliation: '(주)제이와이엔코 도시계획부 과장' },
 ];
 
 /* ── Navbar: active link on scroll ── */
