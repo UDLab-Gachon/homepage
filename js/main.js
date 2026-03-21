@@ -221,3 +221,11 @@ if (contactForm) {
     });
   });
 }
+
+/* ── Publication Summary Toggle ── */
+document.querySelectorAll('.pub-clickable').forEach(title => {
+  title.addEventListener('click', () => {
+    const pubItem = title.closest('.pub-item');
+    pubItem.classList.toggle('open');
+  });
+});

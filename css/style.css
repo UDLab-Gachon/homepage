@@ -306,6 +306,21 @@ img { display: block; max-width: 100%; }
   background: var(--green-pale); padding: 2px 8px; border-radius: 4px;
 }
 .pub-title { font-size: 0.9rem; color: var(--text-dark); line-height: 1.6; font-weight: 400; }
+.pub-clickable { cursor: pointer; transition: color 0.2s; }
+.pub-clickable:hover { color: var(--green-mid); }
+.pub-arrow { font-size: 0.7rem; margin-left: 6px; transition: transform 0.3s; color: #999; }
+.pub-item.open .pub-arrow { transform: rotate(180deg); }
+.pub-summary {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+  font-size: 0.85rem; color: #555; line-height: 1.7;
+  padding: 0 0 0 0; margin: 0;
+  border-left: 3px solid var(--green-light);
+}
+.pub-item.open .pub-summary {
+  max-height: 200px; opacity: 1;
+  padding: 10px 0 10px 14px; margin-top: 8px;
+}
 
 /* ── Members ── */
 .member-tabs {
