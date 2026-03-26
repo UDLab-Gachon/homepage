@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects – Urban Design Lab</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <style>
+    /* ── Projects Page Specific ── */
+    .projects-hero {
+      position: relative; height: 320px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--dark-bg) 0%, #1a3d24 100%);
+      overflow: hidden;
+    }
+    .projects-hero .hero-overlay {
+      position: absolute; inset: 0;
+      background: rgba(15,28,20,0.55);
+    }
+    .projects-hero .hero-content { position: relative; text-align: center; }
+    .projects-hero .hero-title { font-size: 2.6rem; color: #fff; }
+    .projects-hero .hero-desc { color: rgba(255,255,255,0.7); margin-top: 10px; font-size: 1rem; }
+
+    /* Category Filter */
+    .project-filters {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-bottom: 48px;
+    }
+    .project-filter-btn {
+      padding: 8px 20px; border: 1.5px solid var(--border);
+      border-radius: 20px; background: #fff;
+      font-size: 0.88rem; font-family: inherit; cursor: pointer;
+      color: var(--text-mid); transition: all var(--transition);
+    }
+    .project-filter-btn:hover { border-color: var(--green-mid); color: var(--green-mid); }
+    .project-filter-btn.active {
+      background: var(--green-mid); color: #fff;
+      border-color: var(--green-mid);
+    }
+
+    /* Project Card */
+    .project-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 40px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+    }
+    .project-card.reverse { direction: rtl; }
+    .project-card.reverse > * { direction: ltr; }
+
+    .card-visual {
+      position: relative;
+      min-height: 320px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #e8f5ec 0%, #d4edda 100%);
+    }
+    .card-visual img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.5s ease;
+    }
+    .project-card:hover .card-visual img {
+      transform: scale(1.04);
+    }
+
+    /* Image gallery grid within card */
+    .card-img-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 3px;
+      height: 100%;
+    }
+    .card-img-grid img:first-child {
+      grid-column: 1 / -1;
+    }
+    .card-img-grid img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .card-placeholder {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      height: 100%; gap: 12px;
+      color: var(--green-mid);
+    }
+    .card-placeholder i { font-size: 3rem; opacity: 0.5; }
+    .card-placeholder span { font-size: 0.85rem; opacity: 0.6; font-weight: 500; }
+
+    .card-body {
+      padding: 36px 32px;
+      display: flex; flex-direction: column;
+      justify-content: center;
+    }
+
+    .card-category {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 50px;
+      margin-bottom: 14px; width: fit-content;
+    }
+    .cat-campus   { background: rgba(74,158,94,0.12); color: var(--green-dark); }
+    .cat-urban    { background: #e3f2fd; color: #1565c0; }
+    .cat-policy   { background: #fff3e0; color: #e65100; }
+    .cat-smart    { background: #f3e5f5; color: #7b1fa2; }
+
+    .card-body h2 {
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--text-dark); margin-bottom: 4px;
+      line-height: 1.45;
+    }
+    .card-subtitle {
+      font-size: 0.85rem; color: var(--text-mid);
+      margin-bottom: 16px; font-weight: 400;
+      font-style: italic;
+    }
+    .card-desc {
+      font-size: 0.9rem; color: var(--text-mid);
+      line-height: 1.75; font-weight: 300;
+    }
+    .card-tags {
+      margin-top: 20px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .card-tags .tag {
+      background: var(--green-pale); color: var(--green-dark);
+      padding: 4px 12px; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 500;
+      border: 1px solid rgba(26,92,42,0.15);
+    }
+
+    /* Image Slider */
+    .card-slider {
+      position: relative;
+      width: 100%; height: 100%;
+      overflow: hidden;
+    }
+    .card-slider .slider-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.45s ease;
+    }
+    .card-slider .slider-track img {
+      width: 100%; height: 100%;
+      object-fit: cover; flex-shrink: 0;
+    }
+    .card-slider .slider-btn {
+      position: absolute; top: 50%;
+      transform: translateY(-50%);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.45);
+      color: #fff; font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.25s;
+      z-index: 2;
+    }
+    .card-slider .slider-btn:hover { background: rgba(0,0,0,0.7); }
+    .card-slider .slider-prev { left: 10px; }
+    .card-slider .slider-next { right: 10px; }
+    .card-slider .slider-dots {
+      position: absolute; bottom: 12px;
+      left: 50%; transform: translateX(-50%);
+      display: flex; gap: 6px; z-index: 2;
+    }
+    .card-slider .slider-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: none; cursor: pointer;
+      transition: background 0.25s;
+    }
+    .card-slider .slider-dot.active {
+      background: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .project-card,
+      .project-card.reverse {
+        grid-template-columns: 1fr;
+        direction: ltr;
+      }
+      .card-visual { min-height: 240px; }
+      .card-body { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="navbar" id="navbar" style="background:rgba(15,28,20,0.98);">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-accent">UD</span>Lab
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="index.html#professor" class="nav-link">Director</a></li>
+      <li><a href="index.html#research" class="nav-link">Research</a></li>
+      <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+      <li><a href="projects.html" class="nav-link active">Projects</a></li>
+      <li><a href="index.html#members" class="nav-link">Members</a></li>
+      <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+      <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="projects-hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title fade-in">Projects</h1>
+    <p class="hero-desc fade-in">Urban Design Lab의 주요 연구 프로젝트를 소개합니다</p>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="section section-light" style="padding-top:60px;">
+  <div class="container">
+
+    <!-- Category Filter -->
+    <div class="project-filters">
+      <button class="project-filter-btn active" data-category="all">전체</button>
+      <button class="project-filter-btn" data-category="campus">Campus Planning</button>
+      <button class="project-filter-btn" data-category="urban">Urban Design</button>
+      <button class="project-filter-btn" data-category="policy">Policy Research</button>
+      <button class="project-filter-btn" data-category="smart">Smart City</button>
+    </div>
+
+    <!-- 1. 가천 캠퍼스마스터플랜 2기 · 2026 -->
+    <div class="project-card scroll-fade" data-category="campus">
+      <div class="card-visual">
+        <img src="projects/가천 캠퍼스마스터플랜 2기/Cluster2 예시도0323.jpg" alt="가천 캠퍼스마스터플랜 2기 클러스터 예시도" />
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-campus">Campus Planning</span>
+        <h2>가천 캠퍼스마스터플랜 2기</h2>
+        <div class="card-subtitle">Gachon Campus Master Plan — Phase 2 · 2026</div>
+        <p class="card-desc">
+          가천대학교 캠퍼스의 장기적 공간 비전을 수립하는 마스터플랜 2기 프로젝트입니다.
+          클러스터 기반의 캠퍼스 공간 재편을 통해 교육·연구·생활이 유기적으로 연결되는
+          미래형 대학 환경을 설계합니다.
+        </p>
+        <div class="card-tags">
+          <span class="tag">캠퍼스 설계</span>
+          <span class="tag">마스터플랜</span>
+          <span class="tag">클러스터</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Tactical Urbanism · 2022–ongoing -->
+    <div class="project-card reverse scroll-fade" data-category="urban">
+      <div class="card-visual">
+        <div class="card-slider" id="tuSlider">
+          <div class="slider-track">
+            <img src="projects/Tactical Urbanism을 활용한 지역사회 협력형 스튜디오/그림1.jpg" alt="Tactical Urbanism 현장 설치 활동" />
+            <img src="projects/Tactical Urbanism을 활용한 지역사회 협력형 스튜디오/그림2.jpg" alt="선배시민 인터뷰" />
+            <img src="projects/Tactical Urbanism을 활용한 지역사회 협력형 스튜디오/그림3.jpg" alt="스튜디오 크리틱 및 지도" />
+            <img src="projects/Tactical Urbanism을 활용한 지역사회 협력형 스튜디오/그림4.jpg" alt="현장 설문조사 및 키오스크 분석" />
+            <img src="projects/Tactical Urbanism을 활용한 지역사회 협력형 스튜디오/그림5.jpg" alt="팀 미팅 및 멘토링" />
+            <img src="projects/Tactical Urbanism을 활용한 지역사회 협력형 스튜디오/KakaoTalk_20250107_160610463_16.jpg" alt="성과공유 발표" />
+            <img src="projects/Tactical Urbanism을 활용한 지역사회 협력형 스튜디오/KakaoTalk_20250107_163209866_01.jpg" alt="참여자 단체 사진" />
+            <img src="projects/Tactical Urbanism을 활용한 지역사회 협력형 스튜디오/KakaoTalk_20250112_135358204_13.jpg" alt="주민 워크숍" />
+          </div>
+          <button class="slider-btn slider-prev" aria-label="이전"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn slider-next" aria-label="다음"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-urban">Urban Design Studio</span>
+        <h2>Tactical Urbanism을 활용한 지역사회 협력형 스튜디오</h2>
+        <div class="card-subtitle">Community-Collaborative Studio with Tactical Urbanism · 2022–ongoing</div>
+        <p class="card-desc">
+          전술적 도시주의(Tactical Urbanism) 방법론을 적용하여 지역사회와 협력하는
+          연속 디자인 스튜디오 프로젝트입니다. 2022년부터 매년 운영되고 있으며,
+          학생들과 지역 주민이 함께 현장 조사, 소규모 공간 개선, 주민 인터뷰 등을
+          수행하고 성과를 공유하고 있습니다.
+        </p>
+        <div class="card-tags">
+          <span class="tag">Tactical Urbanism</span>
+          <span class="tag">지역사회 협력</span>
+          <span class="tag">P-Project</span>
+          <span class="tag">2022–2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 캠퍼스혁신파크 · 2022 -->
+    <div class="project-card scroll-fade" data-category="campus">
+      <div class="card-visual">
+        <div class="card-slider">
+          <div class="slider-track">
+            <img src="projects/캠퍼스혁신파크/그림8.jpg" alt="G-3UP 캠퍼스 혁신파크 개발계획 조감도" />
+            <img src="projects/캠퍼스혁신파크/그림1.jpg" alt="캠퍼스 혁신파크 사업규모 및 개발 타당성" />
+            <img src="projects/캠퍼스혁신파크/그림2.jpg" alt="캠퍼스와의 조화 및 학습여건 보호 가능성" />
+          </div>
+          <button class="slider-btn slider-prev" aria-label="이전"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn slider-next" aria-label="다음"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-campus">Campus Innovation</span>
+        <h2>캠퍼스혁신파크</h2>
+        <div class="card-subtitle">Campus Innovation Park · 2022</div>
+        <p class="card-desc">
+          대학 캠퍼스를 지역 혁신의 거점으로 전환하는 캠퍼스혁신파크 프로젝트입니다.
+          산·학·관 협력을 통해 캠퍼스 내 유휴 공간을 창업, 연구, 문화 기능이
+          융합된 혁신 공간으로 재편하는 방안을 제안합니다.
+        </p>
+        <div class="card-tags">
+          <span class="tag">혁신파크</span>
+          <span class="tag">산학협력</span>
+          <span class="tag">유휴공간 활용</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 도시건축통합계획지구 · 2021 -->
+    <div class="project-card reverse scroll-fade" data-category="policy">
+      <div class="card-visual">
+        <div class="card-slider">
+          <div class="slider-track">
+            <img src="projects/도시건축통합계획지구 계획방향 수립 연구/그림7.jpg" alt="공간 위계별 가이드라인" />
+            <img src="projects/도시건축통합계획지구 계획방향 수립 연구/그림14.jpg" alt="오픈스페이스 및 보행 네트워크 가이드라인" />
+            <img src="projects/도시건축통합계획지구 계획방향 수립 연구/그림15.jpg" alt="친환경 대중교통 중심 회랑 가이드라인" />
+            <img src="projects/도시건축통합계획지구 계획방향 수립 연구/그림16.jpg" alt="가로 및 연접 건축물 통합적 설계 가이드라인" />
+          </div>
+          <button class="slider-btn slider-prev" aria-label="이전"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn slider-next" aria-label="다음"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-policy">Policy Research</span>
+        <h2>도시건축통합계획지구 계획방향 수립 연구</h2>
+        <div class="card-subtitle">Integrated Urban-Architecture Planning District · 2021</div>
+        <p class="card-desc">
+          도시와 건축을 통합적으로 계획하는 '도시건축통합계획지구'의 계획방향을
+          수립하기 위한 연구용역입니다. 기존 도시계획과 건축계획의 분리된 체계를
+          넘어, 통합적 관점의 계획 프레임워크를 제시합니다.
+        </p>
+        <div class="card-tags">
+          <span class="tag">도시건축통합</span>
+          <span class="tag">계획지구</span>
+          <span class="tag">정책 연구</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 스마트그린도시 · 2020 -->
+    <div class="project-card scroll-fade" data-category="smart">
+      <div class="card-visual">
+        <div class="card-slider">
+          <div class="slider-track">
+            <img src="projects/스마트그린도시/그림2.jpg" alt="스마트 그린도시 종합 마스터플랜" />
+            <img src="projects/스마트그린도시/그림3.jpg" alt="사업계획 — 사업발굴과 추진전략" />
+            <img src="projects/스마트그린도시/그림8.jpg" alt="친환경 물순환 시스템 구축" />
+            <img src="projects/스마트그린도시/그림9.jpg" alt="기후·환경 현황진단 및 여건분석" />
+          </div>
+          <button class="slider-btn slider-prev" aria-label="이전"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn slider-next" aria-label="다음"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-smart">Smart City</span>
+        <h2>충남형 스마트그린도시</h2>
+        <div class="card-subtitle">Chungnam Smart Green City · 2020</div>
+        <p class="card-desc">
+          충남도형 스마트 그린도시 사업 추진을 위한 계획 수립 프로젝트입니다.
+          스마트 기술과 그린 인프라를 결합하여 지속가능한 도시 환경을 구현하는
+          사업 모델과 실행 전략을 수립하였습니다.
+        </p>
+        <div class="card-tags">
+          <span class="tag">스마트시티</span>
+          <span class="tag">그린뉴딜</span>
+          <span class="tag">충남</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 천안 남산지구 도시재생 · 2018 -->
+    <div class="project-card reverse scroll-fade" data-category="urban">
+      <div class="card-visual">
+        <div class="card-slider">
+          <div class="slider-track">
+            <img src="projects/천안 남산지구 도시재생활성화계획 수립 연구/그림6.jpg" alt="골목길 가꾸기 사업계획 렌더링" />
+            <img src="projects/천안 남산지구 도시재생활성화계획 수립 연구/그림4.jpg" alt="골목길 Network Project 대상지 선정" />
+            <img src="projects/천안 남산지구 도시재생활성화계획 수립 연구/그림5.jpg" alt="커뮤니티 공간 현황 분석" />
+            <img src="projects/천안 남산지구 도시재생활성화계획 수립 연구/그림7.jpg" alt="사업계획 — 주차 및 골목길 정비" />
+            <img src="projects/천안 남산지구 도시재생활성화계획 수립 연구/그림8.jpg" alt="골목길 가꾸기 3D 렌더링" />
+            <img src="projects/천안 남산지구 도시재생활성화계획 수립 연구/사진 2018. 6. 1. 오후 2 27 36.jpg" alt="현장 조사 및 주민 인터뷰" />
+          </div>
+          <button class="slider-btn slider-prev" aria-label="이전"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn slider-next" aria-label="다음"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-urban">Urban Regeneration</span>
+        <h2>천안 남산지구 도시재생활성화계획 수립 연구</h2>
+        <div class="card-subtitle">Cheonan Namsan Urban Regeneration Plan · 2018</div>
+        <p class="card-desc">
+          천안시 남산지구의 도시재생활성화계획을 수립하기 위한 연구입니다.
+          쇠퇴한 구도심 지역의 물리적·사회적·경제적 재생을 위한
+          종합적인 활성화 전략과 실행 계획을 마련하였습니다.
+        </p>
+        <div class="card-tags">
+          <span class="tag">도시재생</span>
+          <span class="tag">천안 남산</span>
+          <span class="tag">활성화계획</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. 가천 캠퍼스마스터플랜 1기 · 2017 -->
+    <div class="project-card scroll-fade" data-category="campus">
+      <div class="card-visual">
+        <div class="card-slider">
+          <div class="slider-track">
+            <img src="projects/가천 캠퍼스마스터플랜 1기/그림1.jpg" alt="부지 활용 3D 렌더링" />
+            <img src="projects/가천 캠퍼스마스터플랜 1기/그림10.jpg" alt="잔디광장 상징조형물 설치 스케치" />
+            <img src="projects/가천 캠퍼스마스터플랜 1기/그림11.jpg" alt="제2 공학관 신축 — 남측 입면 디자인" />
+            <img src="projects/가천 캠퍼스마스터플랜 1기/그림12.jpg" alt="비전타워 및 가천관 1층 공간 활성화" />
+            <img src="projects/가천 캠퍼스마스터플랜 1기/그림13.jpg" alt="제2공학관 계획안 — 하늘광장 및 경사로" />
+          </div>
+          <button class="slider-btn slider-prev" aria-label="이전"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn slider-next" aria-label="다음"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-campus">Campus Planning</span>
+        <h2>가천 캠퍼스마스터플랜 1기</h2>
+        <div class="card-subtitle">Gachon Campus Master Plan — Phase 1 · 2017</div>
+        <p class="card-desc">
+          가천대학교 캠퍼스 공간의 효율적 활용을 위한 1기 마스터플랜 연구입니다.
+          정의관 부지 활용 방안 및 오픈 광장 조성 계획을 포함하여 캠퍼스 내
+          공공 공간의 질적 향상을 모색하였습니다.
+        </p>
+        <div class="card-tags">
+          <span class="tag">오픈 광장</span>
+          <span class="tag">정의관 부지</span>
+          <span class="tag">공간 활용</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. 건강도시 조성방안 연구 · 2014 -->
+    <div class="project-card reverse scroll-fade" data-category="urban">
+      <div class="card-visual">
+        <div class="card-slider">
+          <div class="slider-track">
+            <img src="projects/건강도시 조성방안 연구/그림1.jpg" alt="우선 처방지역 도출 과정" />
+            <img src="projects/건강도시 조성방안 연구/그림17.jpg" alt="근린환경 진단 수행단계" />
+            <img src="projects/건강도시 조성방안 연구/그림19.jpg" alt="현장조사 — 건강친화도 및 보도록 수준 평가" />
+          </div>
+          <button class="slider-btn slider-prev" aria-label="이전"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn slider-next" aria-label="다음"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-urban">Healthy City</span>
+        <h2>건강도시 조성방안 연구</h2>
+        <div class="card-subtitle">Healthy City Development Research — Seoul &amp; Gunsan · 2014</div>
+        <p class="card-desc">
+          도시 환경이 시민 건강에 미치는 영향을 진단하고, 건강도시 조성을 위한
+          종합적인 방안을 연구한 프로젝트입니다. 서울과 군산을 대상으로 건강도시
+          환경을 진단하고 개선 전략을 도출하였습니다.
+        </p>
+        <div class="card-tags">
+          <span class="tag">건강도시</span>
+          <span class="tag">환경진단</span>
+          <span class="tag">서울 · 군산</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <p>&copy; 2024 Urban Design Lab, Gachon University. All rights reserved.</p>
+  <p>경기도 성남시 수정구 성남대로 1342 가천대학교</p>
+</footer>
+
+<script>
+/* Hamburger */
+const hamburger = document.getElementById('hamburger');
+const navLinksEl = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => navLinksEl.classList.toggle('open'));
+navLinksEl.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => navLinksEl.classList.remove('open'));
+});
+
+/* Project Category Filter */
+const filterBtns = document.querySelectorAll('.project-filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.category;
+    projectCards.forEach(card => {
+      if (cat === 'all' || card.dataset.category === cat) {
+        card.style.display = '';
+        card.style.animation = 'fadeUp 0.4s ease forwards';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+/* Scroll Fade */
+const scrollObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.scroll-fade').forEach(el => scrollObserver.observe(el));
+
+/* Image Slider */
+document.querySelectorAll('.card-slider').forEach(slider => {
+  const track = slider.querySelector('.slider-track');
+  const images = track.querySelectorAll('img');
+  const dotsWrap = slider.querySelector('.slider-dots');
+  const prevBtn = slider.querySelector('.slider-prev');
+  const nextBtn = slider.querySelector('.slider-next');
+  let current = 0;
+  const total = images.length;
+
+  // create dots
+  images.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', '슬라이드 ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+
+  function goTo(idx) {
+    current = (idx + total) % total;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dotsWrap.querySelectorAll('.slider-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+});
+</script>
+</body>
+</html>
