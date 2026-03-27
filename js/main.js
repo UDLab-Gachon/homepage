@@ -229,3 +229,5 @@ document.querySelectorAll('.pub-clickable').forEach(title => {
     pubItem.classList.toggle('open');
   });
 });
+
+/* ── Language Toggle removed – now using Google Translate widget ── */

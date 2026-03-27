@@ -223,6 +223,7 @@
       <li><a href="index.html#members" class="nav-link">Members</a></li>
       <li><a href="gallery.html" class="nav-link">Gallery</a></li>
       <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+      <li><div id="google_translate_element"></div></li>
     </ul>
   </div>
 </nav>
@@ -232,7 +233,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title fade-in">Projects</h1>
-    <p class="hero-desc fade-in">Urban Design Lab의 주요 연구 프로젝트를 소개합니다</p>
+    <p class="hero-desc fade-in" data-i18n data-en="Introducing the key research projects of Urban Design Lab">Urban Design Lab의 주요 연구 프로젝트를 소개합니다</p>
   </div>
 </section>
 
@@ -242,7 +243,7 @@
 
     <!-- Category Filter -->
     <div class="project-filters">
-      <button class="project-filter-btn active" data-category="all">전체</button>
+      <button class="project-filter-btn active" data-category="all" data-i18n data-en="All">전체</button>
       <button class="project-filter-btn" data-category="campus">Campus Planning</button>
       <button class="project-filter-btn" data-category="urban">Urban Design</button>
       <button class="project-filter-btn" data-category="policy">Policy Research</button>
@@ -580,7 +581,21 @@ document.querySelectorAll('.card-slider').forEach(slider => {
   prevBtn.addEventListener('click', () => goTo(current - 1));
   nextBtn.addEventListener('click', () => goTo(current + 1));
 });
+
+/* ── Language Toggle removed – now using Google Translate widget ── */
 </script>
+<!-- Google Translate -->
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'ko',
+    includedLanguages: 'ko,en,zh-CN,ja',
+    layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <!-- GoatCounter Analytics -->
 <script data-goatcounter="https://udlab-gachon.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>

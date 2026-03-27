@@ -29,6 +29,7 @@
       <li><a href="index.html#members" class="nav-link">Members</a></li>
       <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
       <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+      <li><div id="google_translate_element"></div></li>
     </ul>
   </div>
 </nav>
@@ -38,7 +39,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title fade-in">Gallery</h1>
-    <p class="hero-desc fade-in">Urban Design Lab의 활동과 추억을 담은 갤러리입니다</p>
+    <p class="hero-desc fade-in" data-i18n data-en="A gallery of activities and memories from Urban Design Lab">Urban Design Lab의 활동과 추억을 담은 갤러리입니다</p>
   </div>
 </section>
 
@@ -48,10 +49,10 @@
 
     <!-- Gallery Filter -->
     <div class="gallery-filters">
-      <button class="gallery-filter-btn active" data-category="all">전체</button>
-      <button class="gallery-filter-btn" data-category="group">단체사진</button>
-      <button class="gallery-filter-btn" data-category="event">행사</button>
-      <button class="gallery-filter-btn" data-category="daily">일상</button>
+      <button class="gallery-filter-btn active" data-category="all" data-i18n data-en="All">전체</button>
+      <button class="gallery-filter-btn" data-category="group" data-i18n data-en="Group">단체사진</button>
+      <button class="gallery-filter-btn" data-category="event" data-i18n data-en="Events">행사</button>
+      <button class="gallery-filter-btn" data-category="daily" data-i18n data-en="Daily">일상</button>
     </div>
 
     <!-- Gallery Grid -->
@@ -185,7 +186,21 @@ document.querySelectorAll('.gallery-thumb img').forEach(img => {
     lb.addEventListener('click', () => { lb.classList.remove('active'); setTimeout(() => lb.remove(), 300); });
   });
 });
+
+/* ── Language Toggle removed – now using Google Translate widget ── */
 </script>
+<!-- Google Translate -->
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'ko',
+    includedLanguages: 'ko,en,zh-CN,ja',
+    layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <!-- GoatCounter Analytics -->
 <script data-goatcounter="https://udlab-gachon.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
