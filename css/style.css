@@ -111,6 +111,21 @@ img { display: block; max-width: 100%; }
 }
 .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
+.hero-visitor {
+  margin-top: 56px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.05em;
+}
+.hero-visitor i {
+  margin-right: 5px;
+  font-size: 0.7rem;
+}
+.hero-visitor strong {
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+}
+
 .fade-in {
   opacity: 0; transform: translateY(28px);
   animation: fadeInUp 0.8s forwards;
@@ -609,6 +624,22 @@ img { display: block; max-width: 100%; }
   background: var(--dark-bg); color: rgba(255,255,255,0.45);
   text-align: center; padding: 28px 24px;
   font-size: 0.83rem; line-height: 1.8;
+}
+.visitor-counter {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.04em;
+}
+.visitor-counter i {
+  margin-right: 5px;
+  font-size: 0.68rem;
+}
+.visitor-counter strong {
+  color: rgba(255,255,255,0.8);
+  font-weight: 600;
 }
 
 /* ── Scroll Fade ── */
