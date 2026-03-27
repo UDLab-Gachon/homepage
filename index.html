@@ -44,6 +44,7 @@
       <a href="#research" class="btn btn-primary">연구 소개</a>
       <a href="#publications" class="btn btn-outline">논문 목록</a>
     </div>
+    <div class="hero-visitor fade-in" id="heroVisitor"></div>
   </div>
 </section>
 
@@ -540,7 +541,59 @@
 <footer class="footer">
   <p>© 2024 Urban Design Lab, Gachon University. All rights reserved.</p>
   <p>경기도 성남시 수정구 성남대로 1342 가천대학교</p>
+  <div class="visitor-counter" id="visitorCounter"></div>
 </footer>
+
+<!-- Visitor Counter (GoatCounter API) -->
+<script>
+(function() {
+  var GC = 'https://udlab-gachon.goatcounter.com/counter/';
+
+  function display(weekCount, totalCount) {
+    var html =
+      '<i class="fas fa-chart-bar"></i> ' +
+      'Weekly <strong>' + weekCount + '</strong>' +
+      ' &middot; ' +
+      'Total <strong>' + totalCount + '</strong>';
+    var el = document.getElementById('visitorCounter');
+    if (el) el.innerHTML = html;
+    var heroEl = document.getElementById('heroVisitor');
+    if (heroEl) heroEl.innerHTML = html;
+  }
+
+  // Fetch total visitors
+  var totalCount = '...';
+  var weekCount  = '...';
+  var done = 0;
+
+  function checkDone() {
+    done++;
+    if (done === 2) display(weekCount, totalCount);
+  }
+
+  // 1) Total count
+  fetch(GC + 'TOTAL.json')
+    .then(function(r) { return r.json(); })
+    .then(function(d) { totalCount = d.count || '0'; })
+    .catch(function()  { totalCount = '-'; })
+    .finally(checkDone);
+
+  // 2) Weekly count (last 7 days)
+  var today = new Date();
+  var weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+  var period = weekAgo.toISOString().slice(0,10) + '-' + today.toISOString().slice(0,10);
+
+  fetch(GC + 'TOTAL.json?period=' + period)
+    .then(function(r) { return r.json(); })
+    .then(function(d) { weekCount = d.count || '0'; })
+    .catch(function()  { weekCount = '-'; })
+    .finally(checkDone);
+})();
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://udlab-gachon.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="js/main.js"></script>
