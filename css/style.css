@@ -112,18 +112,21 @@ img { display: block; max-width: 100%; }
 .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
 .hero-visitor {
-  margin-top: 56px;
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.45);
-  letter-spacing: 0.05em;
+  margin-top: 36px;
+  font-family: 'Raleway', 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--green-light);
+  letter-spacing: 0.18em;
 }
 .hero-visitor i {
   margin-right: 5px;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
 }
 .hero-visitor strong {
-  color: rgba(255,255,255,0.7);
-  font-weight: 600;
+  color: var(--green-light);
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .fade-in {
