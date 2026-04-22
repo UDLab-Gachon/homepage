@@ -622,6 +622,49 @@ body { top: 0 !important; }
 }
 .gallery-thumb img:hover { transform: scale(1.05); }
 
+/* Gallery Slider (Carousel) */
+.gallery-slider { position: relative; overflow: hidden; height: 220px; }
+.gallery-slider .slides {
+  display: flex; width: 100%; height: 100%;
+  transition: transform 0.5s ease;
+}
+.gallery-slider .slide {
+  min-width: 100%; height: 100%;
+  position: relative;
+}
+.gallery-slider .slide img {
+  width: 100%; height: 100%; object-fit: cover;
+  cursor: pointer;
+}
+.gallery-slider .slider-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(0,0,0,0.45); color: #fff; border: none;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; z-index: 3; transition: background 0.2s ease;
+}
+.gallery-slider .slider-btn:hover { background: rgba(0,0,0,0.75); }
+.gallery-slider .slider-btn.prev { left: 10px; }
+.gallery-slider .slider-btn.next { right: 10px; }
+.gallery-slider .slider-dots {
+  position: absolute; bottom: 10px; left: 50%;
+  transform: translateX(-50%); display: flex; gap: 6px; z-index: 3;
+}
+.gallery-slider .slider-dots button {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.55); border: none;
+  cursor: pointer; padding: 0; transition: background 0.2s ease, transform 0.2s ease;
+}
+.gallery-slider .slider-dots button.active {
+  background: #fff; transform: scale(1.25);
+}
+.gallery-slider .slide-counter {
+  position: absolute; top: 10px; right: 10px;
+  background: rgba(0,0,0,0.55); color: #fff;
+  font-size: 0.72rem; padding: 3px 8px; border-radius: 12px;
+  z-index: 3;
+}
+
 .placeholder-thumb {
   height: 220px; display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 10px;

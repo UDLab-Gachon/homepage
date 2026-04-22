@@ -58,13 +58,50 @@
     <!-- Gallery Grid -->
     <div class="gallery-grid" id="galleryGrid">
 
+      <!-- 2026 한국도시설계학회 춘계학술발표대회 수상 & 발표 (슬라이더) -->
       <div class="gallery-card" data-category="event">
-        <div class="gallery-thumb">
-          <img src="gallery/KakaoTalk_20260319_163128645_01.jpg" alt="경포마라톤 단체사진" />
+        <div class="gallery-thumb gallery-slider" data-slider>
+          <div class="slides">
+            <div class="slide"><img src="gallery/award_2026_01.jpg" alt="2026 한국도시설계학회 춘계학술발표대회 수상 기념 촬영" /></div>
+            <div class="slide"><img src="gallery/award_2026_02.jpg" alt="2026 한국도시설계학회 춘계학술발표대회 수상자 단체 기념 촬영" /></div>
+            <div class="slide"><img src="gallery/award_2026_03.jpg" alt="2026 한국도시설계학회 춘계학술발표대회 시상식 기념 촬영" /></div>
+            <div class="slide"><img src="gallery/award_2026_04.jpg" alt="춘계학술발표대회 발표 - 공개공지 흡연행태 연구 연구배경 및 목적 (김민준)" /></div>
+            <div class="slide"><img src="gallery/award_2026_05.jpg" alt="춘계학술발표대회 발표 - 도시계획 스튜디오 팀 갈등 연구 (김지혜)" /></div>
+            <div class="slide"><img src="gallery/award_2026_06.jpg" alt="춘계학술발표대회 발표 - 영화에 나타나는 Behavior Setting 공간적 특성 변화 연구 (김준석)" /></div>
+            <div class="slide"><img src="gallery/award_2026_07.jpg" alt="춘계학술발표대회 발표 - 분석결과: 참여 수준의 변화 (박진영)" /></div>
+            <div class="slide"><img src="gallery/award_2026_08.jpg" alt="춘계학술발표대회 발표자 김준석" /></div>
+            <div class="slide"><img src="gallery/award_2026_09.jpg" alt="춘계학술발표대회 발표자 김지혜" /></div>
+            <div class="slide"><img src="gallery/award_2026_10.jpg" alt="춘계학술발표대회 발표자 박진영 근접" /></div>
+            <div class="slide"><img src="gallery/award_2026_11.jpg" alt="춘계학술발표대회 발표자 김준석 발표 장면" /></div>
+            <div class="slide"><img src="gallery/award_2026_12.jpg" alt="춘계학술발표대회 발표자 김민준" /></div>
+          </div>
+          <button class="slider-btn prev" aria-label="이전"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn next" aria-label="다음"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots"></div>
+          <div class="slide-counter">1 / 12</div>
+        </div>
+        <div class="gallery-caption">
+          <h4>2026 한국도시설계학회 춘계학술발표대회 수상 &amp; 발표</h4>
+          <p>Compact City &amp; AI City 주제 학술대회에서 우수상 수상 및 연구실 구성원들의 발표 현장</p>
+          <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2026.04.18</span>
+        </div>
+      </div>
+
+      <!-- 경포마라톤 (2장 슬라이더) -->
+      <div class="gallery-card" data-category="event">
+        <div class="gallery-thumb gallery-slider" data-slider>
+          <div class="slides">
+            <div class="slide"><img src="gallery/KakaoTalk_20260319_163128645_01.jpg" alt="경포마라톤 단체사진" /></div>
+            <div class="slide"><img src="gallery/KakaoTalk_20260319_163128645.jpg" alt="경포마라톤 해변에서" /></div>
+          </div>
+          <button class="slider-btn prev" aria-label="이전"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn next" aria-label="다음"><i class="fas fa-chevron-right"></i></button>
+          <div class="slider-dots"></div>
+          <div class="slide-counter">1 / 2</div>
         </div>
         <div class="gallery-caption">
           <h4>경포마라톤 참가</h4>
-          <p>연구실 구성원들과 함께한 경포마라톤</p>
+          <p>연구실 구성원들과 함께한 경포마라톤 &amp; 경포 해변의 추억</p>
           <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2025.10.18</span>
         </div>
       </div>
@@ -124,17 +161,6 @@
         </div>
       </div>
 
-      <div class="gallery-card" data-category="event">
-        <div class="gallery-thumb">
-          <img src="gallery/KakaoTalk_20260319_163128645.jpg" alt="경포마라톤 해변에서" />
-        </div>
-        <div class="gallery-caption">
-          <h4>경포마라톤</h4>
-          <p>경포 해변 모래사장에서의 한 컷</p>
-          <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2025.10.18</span>
-        </div>
-      </div>
-
     </div><!-- /galleryGrid -->
 
   </div>
@@ -172,6 +198,45 @@ filterBtns.forEach(btn => {
         card.style.display = 'none';
       }
     });
+  });
+});
+
+/* Gallery Slider (Carousel) */
+document.querySelectorAll('[data-slider]').forEach(slider => {
+  const slidesEl = slider.querySelector('.slides');
+  const slides = slider.querySelectorAll('.slide');
+  const prevBtn = slider.querySelector('.slider-btn.prev');
+  const nextBtn = slider.querySelector('.slider-btn.next');
+  const dotsEl = slider.querySelector('.slider-dots');
+  const counterEl = slider.querySelector('.slide-counter');
+  let idx = 0;
+  const total = slides.length;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', (i + 1) + '번 슬라이드로 이동');
+    if (i === 0) b.classList.add('active');
+    b.addEventListener('click', (e) => { e.stopPropagation(); goTo(i); });
+    dotsEl.appendChild(b);
+  });
+
+  function update() {
+    slidesEl.style.transform = 'translateX(' + (-idx * 100) + '%)';
+    dotsEl.querySelectorAll('button').forEach((d, i) => d.classList.toggle('active', i === idx));
+    if (counterEl) counterEl.textContent = (idx + 1) + ' / ' + total;
+  }
+  function goTo(i) { idx = (i + total) % total; update(); }
+
+  prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(idx - 1); });
+  nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(idx + 1); });
+
+  // Touch swipe support
+  let touchStartX = 0;
+  slider.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  slider.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) goTo(idx + (dx < 0 ? 1 : -1));
   });
 });
 
