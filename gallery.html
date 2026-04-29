@@ -8,6 +8,79 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <style>
+    /* ===== Like Button ===== */
+    .caption-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .like-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 999px;
+      background: #fff;
+      color: #888;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .like-btn:hover {
+      border-color: #ff4d6d;
+      color: #ff4d6d;
+      background: #fff5f7;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(255, 77, 109, 0.15);
+    }
+    .like-btn i {
+      font-size: 1rem;
+      transition: transform 0.3s ease, color 0.25s ease;
+    }
+    .like-btn.liked {
+      border-color: #ff4d6d;
+      background: #ff4d6d;
+      color: #fff;
+    }
+    .like-btn.liked i {
+      color: #fff;
+    }
+    .like-btn.pop i {
+      animation: likePop 0.5s ease;
+    }
+    @keyframes likePop {
+      0%   { transform: scale(1); }
+      30%  { transform: scale(1.5); }
+      60%  { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+    .like-btn .like-count {
+      min-width: 14px;
+      text-align: left;
+      font-variant-numeric: tabular-nums;
+    }
+    /* Floating heart animation on click */
+    .like-btn .floating-heart {
+      position: absolute;
+      pointer-events: none;
+      color: #ff4d6d;
+      font-size: 1rem;
+      animation: floatUp 0.9s ease-out forwards;
+    }
+    @keyframes floatUp {
+      0%   { transform: translate(-50%, 0) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -40px) scale(1.6); opacity: 0; }
+    }
+    .like-btn { position: relative; }
+  </style>
 </head>
 <body>
 
@@ -59,7 +132,7 @@
     <div class="gallery-grid" id="galleryGrid">
 
       <!-- 2026 한국도시설계학회 춘계학술발표대회 수상 & 발표 (슬라이더) -->
-      <div class="gallery-card" data-category="event">
+      <div class="gallery-card" data-category="event" data-like-id="award_2026">
         <div class="gallery-thumb gallery-slider" data-slider>
           <div class="slides">
             <div class="slide"><img src="gallery/award_2026_01.jpg" alt="2026 한국도시설계학회 춘계학술발표대회 수상 기념 촬영" /></div>
@@ -83,12 +156,18 @@
         <div class="gallery-caption">
           <h4>2026 한국도시설계학회 춘계학술발표대회 수상 &amp; 발표</h4>
           <p>Compact City &amp; AI City 주제 학술대회에서 우수상 수상 및 연구실 구성원들의 발표 현장</p>
-          <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2026.04.18</span>
+          <div class="caption-bottom">
+            <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2026.04.18</span>
+            <button class="like-btn" type="button" aria-label="좋아요">
+              <i class="far fa-heart"></i>
+              <span class="like-count">0</span>
+            </button>
+          </div>
         </div>
       </div>
 
       <!-- 경포마라톤 (2장 슬라이더) -->
-      <div class="gallery-card" data-category="event">
+      <div class="gallery-card" data-category="event" data-like-id="gyeongpo_marathon">
         <div class="gallery-thumb gallery-slider" data-slider>
           <div class="slides">
             <div class="slide"><img src="gallery/KakaoTalk_20260319_163128645_01.jpg" alt="경포마라톤 단체사진" /></div>
@@ -102,62 +181,98 @@
         <div class="gallery-caption">
           <h4>경포마라톤 참가</h4>
           <p>연구실 구성원들과 함께한 경포마라톤 &amp; 경포 해변의 추억</p>
-          <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2025.10.18</span>
+          <div class="caption-bottom">
+            <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2025.10.18</span>
+            <button class="like-btn" type="button" aria-label="좋아요">
+              <i class="far fa-heart"></i>
+              <span class="like-count">0</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="gallery-card" data-category="group">
+      <div class="gallery-card" data-category="group" data-like-id="lab_dinner">
         <div class="gallery-thumb">
           <img src="gallery/KakaoTalk_20260319_163128645_02.jpg" alt="연구실 회식" />
         </div>
         <div class="gallery-caption">
           <h4>연구실 회식</h4>
           <p>연구실 구성원 모두가 함께한 즐거운 저녁 시간</p>
-          <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2025.09.18</span>
+          <div class="caption-bottom">
+            <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2025.09.18</span>
+            <button class="like-btn" type="button" aria-label="좋아요">
+              <i class="far fa-heart"></i>
+              <span class="like-count">0</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="gallery-card" data-category="event">
+      <div class="gallery-card" data-category="event" data-like-id="kup20_award">
         <div class="gallery-thumb">
           <img src="gallery/KakaoTalk_20260319_163128645_03.jpg" alt="미래도시 아이디어 공모전 KUP 20 최우수상" />
         </div>
         <div class="gallery-caption">
           <h4>미래도시 아이디어 공모전 최우수상</h4>
           <p>KUP 20 공모전 최우수상 수상 (300만원)</p>
-          <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2025.08.09</span>
+          <div class="caption-bottom">
+            <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2025.08.09</span>
+            <button class="like-btn" type="button" aria-label="좋아요">
+              <i class="far fa-heart"></i>
+              <span class="like-count">0</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="gallery-card" data-category="group">
+      <div class="gallery-card" data-category="group" data-like-id="yangyang_mt">
         <div class="gallery-thumb">
           <img src="gallery/KakaoTalk_20260319_163128645_04.jpg" alt="연구실 단체사진" />
         </div>
         <div class="gallery-caption">
           <h4>연구실 양양 MT</h4>
           <p>양양에서 함께한 연구실 MT</p>
-          <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2025.03.15</span>
+          <div class="caption-bottom">
+            <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2025.03.15</span>
+            <button class="like-btn" type="button" aria-label="좋아요">
+              <i class="far fa-heart"></i>
+              <span class="like-count">0</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="gallery-card" data-category="event">
+      <div class="gallery-card" data-category="event" data-like-id="yeouido_rally">
         <div class="gallery-thumb">
           <img src="gallery/KakaoTalk_20260319_163128645_05.jpg" alt="여의도 집회" />
         </div>
         <div class="gallery-caption">
           <h4>여의도 집회</h4>
           <p>여의도 집회 현장에서</p>
-          <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2024.12.14</span>
+          <div class="caption-bottom">
+            <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2024.12.14</span>
+            <button class="like-btn" type="button" aria-label="좋아요">
+              <i class="far fa-heart"></i>
+              <span class="like-count">0</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="gallery-card" data-category="daily">
+      <div class="gallery-card" data-category="daily" data-like-id="climbing_rainbow">
         <div class="gallery-thumb">
           <img src="gallery/KakaoTalk_20260319_163128645_06.jpg" alt="클라이밍 후 무지개" />
         </div>
         <div class="gallery-caption">
           <h4>클라이밍 활동</h4>
           <p>연구실 체육 활동 후 멋진 무지개와 함께</p>
-          <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2024.10.29</span>
+          <div class="caption-bottom">
+            <span class="gallery-date"><i class="fas fa-calendar-alt"></i> 2024.10.29</span>
+            <button class="like-btn" type="button" aria-label="좋아요">
+              <i class="far fa-heart"></i>
+              <span class="like-count">0</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -253,6 +368,136 @@ document.querySelectorAll('.gallery-thumb img').forEach(img => {
 });
 
 /* ── Language Toggle removed – now using Google Translate widget ── */
+
+/* ===== Like Button (Visitor Likes) =====
+   - Global count via free counter API (abacus.jasoncameron.dev)
+   - Per-device duplicate prevention via localStorage
+   - Graceful fallback: if API fails, falls back to localStorage-only count
+*/
+(function () {
+  const NAMESPACE = 'udlab-gachon-gallery';   // counter namespace
+  const LS_LIKED_KEY = 'udlab_liked_photos';   // localStorage key for liked items
+  const LS_FALLBACK_PREFIX = 'udlab_like_count_'; // fallback per-photo count
+
+  function getLikedSet() {
+    try {
+      return new Set(JSON.parse(localStorage.getItem(LS_LIKED_KEY) || '[]'));
+    } catch (e) {
+      return new Set();
+    }
+  }
+  function saveLikedSet(set) {
+    try {
+      localStorage.setItem(LS_LIKED_KEY, JSON.stringify([...set]));
+    } catch (e) {}
+  }
+  function getFallbackCount(id) {
+    return parseInt(localStorage.getItem(LS_FALLBACK_PREFIX + id) || '0', 10) || 0;
+  }
+  function setFallbackCount(id, n) {
+    try { localStorage.setItem(LS_FALLBACK_PREFIX + id, String(n)); } catch (e) {}
+  }
+  function formatCount(n) {
+    if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+    return String(n);
+  }
+
+  async function fetchCount(id) {
+    try {
+      const res = await fetch(`https://abacus.jasoncameron.dev/get/${NAMESPACE}/${id}`, { cache: 'no-store' });
+      if (!res.ok) throw new Error('fetch failed');
+      const data = await res.json();
+      return typeof data.value === 'number' ? data.value : null;
+    } catch (e) {
+      return null;
+    }
+  }
+  async function incrementCount(id) {
+    try {
+      const res = await fetch(`https://abacus.jasoncameron.dev/hit/${NAMESPACE}/${id}`, { cache: 'no-store' });
+      if (!res.ok) throw new Error('hit failed');
+      const data = await res.json();
+      return typeof data.value === 'number' ? data.value : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function spawnFloatingHeart(btn) {
+    const fh = document.createElement('i');
+    fh.className = 'fas fa-heart floating-heart';
+    fh.style.left = '50%';
+    fh.style.top = '50%';
+    btn.appendChild(fh);
+    setTimeout(() => fh.remove(), 900);
+  }
+
+  function setLikedVisual(btn, liked) {
+    const icon = btn.querySelector('i.fa-heart, i.far, i.fas');
+    if (liked) {
+      btn.classList.add('liked');
+      if (icon) { icon.classList.remove('far'); icon.classList.add('fas'); }
+    } else {
+      btn.classList.remove('liked');
+      if (icon) { icon.classList.remove('fas'); icon.classList.add('far'); }
+    }
+  }
+
+  const liked = getLikedSet();
+  const buttons = document.querySelectorAll('.gallery-card[data-like-id] .like-btn');
+
+  buttons.forEach(btn => {
+    const card = btn.closest('.gallery-card');
+    const id = card.dataset.likeId;
+    const countEl = btn.querySelector('.like-count');
+
+    // Initial: show fallback first (instant), then update with global count
+    countEl.textContent = formatCount(getFallbackCount(id));
+    if (liked.has(id)) setLikedVisual(btn, true);
+
+    fetchCount(id).then(n => {
+      if (n !== null) {
+        countEl.textContent = formatCount(n);
+        setFallbackCount(id, n);
+      }
+    });
+
+    btn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const currentlyLiked = liked.has(id);
+      if (currentlyLiked) {
+        // Already liked from this device — gentle nudge, no decrement
+        btn.classList.remove('pop');
+        void btn.offsetWidth;
+        btn.classList.add('pop');
+        return;
+      }
+
+      // Optimistic UI update
+      liked.add(id);
+      saveLikedSet(liked);
+      setLikedVisual(btn, true);
+      btn.classList.remove('pop');
+      void btn.offsetWidth;
+      btn.classList.add('pop');
+      spawnFloatingHeart(btn);
+
+      const optimistic = (parseInt(countEl.dataset.raw || getFallbackCount(id), 10) || 0) + 1;
+      countEl.textContent = formatCount(optimistic);
+      setFallbackCount(id, optimistic);
+
+      // Try to increment globally
+      const newCount = await incrementCount(id);
+      if (newCount !== null) {
+        countEl.textContent = formatCount(newCount);
+        countEl.dataset.raw = newCount;
+        setFallbackCount(id, newCount);
+      } else {
+        countEl.dataset.raw = optimistic;
+      }
+    });
+  });
+})();
 </script>
 <!-- Google Translate -->
 <script>
